@@ -17,16 +17,16 @@ if not metax then exit("<color=red>Fatal Error: Can't find metaxploit.so library
 //[u] - not guest
 //[r] - only root
 //[a]help - shows all commands and their usage
-//[p]cd [directory/..] - Makes given directory or parent directory main 
-//[p]touch [path] [file_name] - Creates an empty text file at the provided path
+//✔[p]cd [directory/..] - Makes given directory or parent directory main 
+//✔[p]touch [path] [file_name] - Creates an empty text file at the provided path
 //[r]passwd [username] [password] - Changes password for given user(must be root)
 //[a]ls opt[-a] opt[-p] opt[path] - lists contents of given path or main dir (if -a then recursively lists all contents of computer)(if -p shows owner, owner group and permissions of all listed files)
 //[a]groups [username] -  Returns a string containing groups associated with an existing user on the computer
 //[r]groupadd [username] [group] - Creates a new group associated with an existing user on the computer
 //[r]groupdel [username] [group] - Deletes an existing group associated with an existing user on the computer
 //[r]useradd [username] [password] - Creates a user on the computer
-//[r]userdel [username] [removeHome=false] - Deletes the indicated user from the computer. It can optionally delete the user's home folder
-//[a]ps - shows active programs 
+//[r]userdel [username] [removeHome=false]  - Deletes the indicated user from the computer. It can optionally delete the user's home folder
+//✔[a]ps - shows active programs 
 //[p]kill [PID] - Closes a program associated with the provided PID
 //[a]ipinfo - shows local ip, public ip, network gateway, active ports and network devices
 //[a]iwlist [net_device] - shows info about available wifi networks
@@ -45,11 +45,23 @@ if not metax then exit("<color=red>Fatal Error: Can't find metaxploit.so library
 //[a]nuke - delete all files allowed by permissions(asks if you are sure)
 
 
+perm_ask = function(user)//If permissions are not root asks confirmation to continue
+    conf = user_input("This command only works with root permissions, continue(Y/n):")
+    if conf.lower == "y" then
+        return true
+    else 
+        return false
+    end if
+end function
+
+
 computer_interface = function(computer)
     main_dir = "/"
     pc_name = computer.get_name
+    print "What permissions does the computer have?"
+    user = user_input(">").lower
     while true 
-        cmd_input = user_input(pc_name + ":" + main_dir + "#").split(" ")
+        cmd_input = user_input(user + "@" + pc_name + ":" +  main_dir + "#").split(" ")
         cmd = cmd_input[0]
         if cmd_input.len >= 1 then
             params = cmd_input[1:]
@@ -90,6 +102,16 @@ computer_interface = function(computer)
                 else
                     print "<b><color=red>Creation Error: " + result
                 end if
+            end if
+        
+        //passwd
+        else if cmd == "passwd" then
+            if user != "root" then
+                check = perm_ask
+            end if
+            if check then
+                if params.len != 2 then print "passwd [username] [password] - Changes password for given user(must be root)"
+                computer.change_password(params[0], params[1])
             end if
 
         end if
