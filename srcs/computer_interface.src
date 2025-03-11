@@ -117,7 +117,7 @@ computer_interface = function(computer)
 
         //ls
         else if cmd == "ls" then
-            if  
+
         end if
         
     end while
