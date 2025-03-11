@@ -46,7 +46,7 @@ print"<color=green>       \ \_______\ \_______\____\_\  \ "
 print"<color=green>        \|_______|\|_______|\ ________\"
 print"<color=green>                           \|_________|"
 print"<color=green>---------------------------------------------"
-print"<color=green>Balls_cutting_sistem@"
+print"<color=green>Balls_cutting_system@"
 print"<color=green>Mostly_by_wer2403(with_damirka's_help)_;()"
 print"<color=green>---------------------------------------------"                           
 end function
