@@ -1,7 +1,0 @@
-metax = include_lib("/lib/metaxploit.so")
-if not metax then
-    metax = include_lib(current_path + "/metaxploit.so")
-end if
-if not metax then exit("<color=red>Fatal Error: Can't find metaxploit.so library in the /lib path or the current folder")
-
-metax.rshell_client("Rshell_IP", 1222, "Filexplorer")
