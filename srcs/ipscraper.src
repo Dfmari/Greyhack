@@ -18,4 +18,4 @@ for one in range(1, 255, 1)
         end for
     end for
 end for
-print("пизда")
+print("Kill hostages")
