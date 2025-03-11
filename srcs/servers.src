@@ -1,0 +1,21 @@
+servers = {"Server name": ["server_ip", "user_name", "user_pass"]}
+inputcheck = false
+while inputcheck ==  false
+    index = 1
+    keys = []
+    for server in servers
+        print "[" + index + "] - " + server["key"]
+        keys.push server["key"]
+        index = index + 1
+    end for
+    id = user_input("Choose server to connect to:").to_int - 1
+    if id <= keys.len then
+        inputcheck = true
+        key = keys[id]
+        server = servers[key]
+    else
+        print "<color=orange>Error: Option not found"
+    end if
+end while
+
+get_shell.connect_service(server[0], 22, server[1], server[2]).start_terminal

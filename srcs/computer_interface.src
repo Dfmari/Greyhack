@@ -1,0 +1,100 @@
+//Computer Interface
+crypto = include_lib("/lib/crypto.so")
+if not crypto then
+    crypto = include_lib(current_path + "/crypto.so")
+end if
+if not crypto then exit("<color=red>Fatal Error: Can't find crypto.so library in the /lib path or the current folder")
+
+metax = include_lib("/lib/metaxploit.so")
+if not metax then
+    metax = include_lib(current_path + "/metaxploit.so")
+end if
+if not metax then exit("<color=red>Fatal Error: Can't find metaxploit.so library in the /lib path or the current folder")
+
+//Commands:
+//[p] - depends on computer permissions
+//[a] - any
+//[u] - not guest
+//[r] - only root
+//[a]help - shows all commands and their usage
+//[p]cd [directory/..] - Makes given directory or parent directory main 
+//[p]touch [path] [file_name] - Creates an empty text file at the provided path
+//[r]passwd [username] [password] - Changes password for given user(must be root)
+//[a]ls opt[-a] opt[-p] opt[path] - lists contents of given path or main dir (if -a then recursively lists all contents of computer)(if -p shows owner, owner group and permissions of all listed files)
+//[a]groups [username] -  Returns a string containing groups associated with an existing user on the computer
+//[r]groupadd [username] [group] - Creates a new group associated with an existing user on the computer
+//[r]groupdel [username] [group] - Deletes an existing group associated with an existing user on the computer
+//[r]useradd [username] [password] - Creates a user on the computer
+//[r]userdel [username] [removeHome=false] - Deletes the indicated user from the computer. It can optionally delete the user's home folder
+//[a]ps - shows active programs 
+//[p]kill [PID] - Closes a program associated with the provided PID
+//[a]ipinfo - shows local ip, public ip, network gateway, active ports and network devices
+//[a]iwlist [net_device] - shows info about available wifi networks
+//[u]wifi  [bssid] [essid] [password] - connects to given wifi
+//[p]mkdir [path] [name=newFolder] - Creates a folder at the provided path
+//[u]chmod [file_path] [perms] [isRecursive=false] - Modifies permissions of given file
+//[p]cp [file_path] [new_path] opt[new_name] -  Copies the file to the provided path
+//[p]rm [file_path] - delete the given file
+//[p]cat [file_path] - prints contents of  text file
+//[a]whatis [file_path] - shows all available info an given file
+//[p]edit [-a/-r] [file_path] - shows text file contents and asks for text input (if -a adds given text to the file if -r replaces file content with given text)
+//[p]rename [file_path] [new_name] - Renames the file with the name provided
+//[p]bank - Tries to get bank info of all users
+//[p]pass - Tries to get root pass of computer
+//[p]mail - Tries to get mail info of all users
+//[a]nuke - delete all files allowed by permissions(asks if you are sure)
+
+
+computer_interface = function(computer)
+    main_dir = "/"
+    pc_name = computer.get_name
+    while true 
+        cmd_input = user_input(pc_name + ":" + main_dir + "#").split(" ")
+        cmd = cmd_input[0]
+        if cmd_input.len >= 1 then
+            params = cmd_input[1:]
+        else
+            params = []
+        end if
+        
+        //ps
+        if cmd == "ps" then
+            if params.len != 0 then
+                print "ps - shows active programs"
+            end if
+            print format_columns(computer.show_procs())
+
+        //cd
+        else if cmd == "cd" then
+            if params.len >= 1 then
+                print "cd [directory/..] - Makes given directory or parent directory main"
+                print "Example:"
+                print "    cd /home"
+                print "    cd .."
+            else
+                main_dir = params[0]
+            end if
+        
+        //touch
+        else if cmd == "touch" then
+            if params.len != 2 then
+                print "touch [path] [file_name] - Creates an empty text file at the provided path"
+                print "Example: touch /home/User example_file"
+            else 
+                name = params[1]
+                path = params[0]
+                result = computer.touch(path, name)
+                type = typeof(computer.touch(path, name))
+                if type != "string" and computer.File(path + "/" + name) then
+                    print "<color=green>Succesfully created " + path + "/" + name
+                else
+                    print "<b><color=red>Creation Error: " + result
+                end if
+            end if
+
+        end if
+        
+    end while
+end function
+
+computer_interface(get_shell.host_computer)

@@ -511,7 +511,7 @@ help = function()//shows user guide for Hax0r tool
 end function
 
 
-//PROGRAM-------------------------------------------------------- 
+//PROGRAM--------------------------------------------------------
 title
 start = startup
 preoption =  start[1]
