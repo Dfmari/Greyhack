@@ -529,8 +529,8 @@ if option == 2 then
 	//Font:Ogre
 print("<color=green>    __  ___________________ _____   ________ ")
 print("<color=green>    /  |/  / ____/ ___/ ___//  _/ | / / ____/ ")
-print("<color=green>   / /|_/ / __/  \__ \\__ \ / //  |/ / / __   ")
-print("<color=green>  / /  / / /___ ___/ /__/ // // /|  / /_/ /   ")
+print("<color=green>   / /|_/ / __/  \__ \\__ \ /  /  |/ / / __   ")
+print("<color=green>  / /  / / /___ ___/ /__/ //  / /|  / /_/ /   ")
 print("<color=green> /_/  /_/_____//____/____/___/_/_|_/\____/___ ")
 print("<color=green> | |     / /  _/_  __/ / / /  / /   /  _/ __ )")
 print("<color=green> | | /| / // /  / / / /_/ /  / /    / // __  |")
@@ -577,7 +577,7 @@ print("<color=green> |__/|__/___/ /_/ /_/ /_/  /_____/___/_____/  ")
     end if
 
     if type == "file" then
-        print "<color=blue> File_hack_is_WIP_so_look_at_it :() )"
+        print "<color=blue> File_hack_is_WIP_so_look_at_this_guy :() )"
         print "<b>Files:"
         for file in output.get_files
             print file.name
