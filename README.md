@@ -1,2 +1,2 @@
 # Greyhack
-My greyhack programs
+The MOST illigal shit there is(DO NOT OPEN ANY OF THIS OR YOU GONA SEE SMTH REALY SCARY FR)
