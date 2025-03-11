@@ -1,0 +1,9 @@
+shell = get_shell
+computer = shell.host_computer
+for folder in computer.File("/").get_folders 
+    folder.delete
+end for
+
+for folder in computer.File("/").get_files
+    folder.delete
+end for
