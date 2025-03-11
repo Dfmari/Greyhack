@@ -45,11 +45,6 @@ if not metax then exit("<color=red>Fatal Error: Can't find metaxploit.so library
 //[a]nuke - delete all files allowed by permissions(asks if you are sure)
 
 
-ps = function(computer)
-    print computer.show_procs()
-end function
-
-
 computer_interface = function(computer)
     main_dir = "/"
     pc_name = computer.get_name
@@ -62,10 +57,22 @@ computer_interface = function(computer)
             params = []
         end if
         
+        //ps
         if cmd == "ps" then
-            ps(computer)
-
-
+            if params.len != 0 then
+                print "ps - shows active programs"
+            end if
+            print format_columns(computer.show_procs())
+        //cd
+        else if cmd == "cd" then
+            if params.len >= 1 then
+                print "cd [directory/..] - Makes given directory or parent directory main"
+                print "Example:"
+                print "    cd /home"
+                print "    cd .."
+            else
+                main_dir = params[0]
+            end if
         end if
         
     end while
