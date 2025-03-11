@@ -19,7 +19,7 @@ if not metax then exit("<color=red>Fatal Error: Can't find metaxploit.so library
 //[a]help - shows all commands and their usage
 //✔[p]cd [directory/..] - Makes given directory or parent directory main 
 //✔[p]touch [path] [file_name] - Creates an empty text file at the provided path
-//[r]passwd [username] [password] - Changes password for given user(must be root)
+//✔[r]passwd [username] [password] - Changes password for given user(must be root)
 //[a]ls opt[-a] opt[-p] opt[path] - lists contents of given path or main dir (if -a then recursively lists all contents of computer)(if -p shows owner, owner group and permissions of all listed files)
 //[a]groups [username] -  Returns a string containing groups associated with an existing user on the computer
 //[r]groupadd [username] [group] - Creates a new group associated with an existing user on the computer
@@ -43,6 +43,7 @@ if not metax then exit("<color=red>Fatal Error: Can't find metaxploit.so library
 //[p]pass - Tries to get root pass of computer
 //[p]mail - Tries to get mail info of all users
 //[a]nuke - delete all files allowed by permissions(asks if you are sure)
+//[a]pns - it says penis (VERY FUNNY)
 
 
 perm_ask = function(user)//If permissions are not root asks confirmation to continue
@@ -114,9 +115,17 @@ computer_interface = function(computer)
                 computer.change_password(params[0], params[1])
             end if
 
+        //ls
+        else if cmd == "ls" then
+            if  
         end if
         
     end while
 end function
 
 computer_interface(get_shell.host_computer)
+//  ______   ______     __   __     __     ______   
+// /\  == \ /\  ___\   /\ "-.\ \   /\ \   /\  ___\  
+// \ \  _-/ \ \  __\   \ \ \-.  \  \ \ \  \ \___  \ 
+//  \ \_\    \ \_____\  \ \_\\"\_\  \ \_\  \/\_____\
+//   \/_/     \/_____/   \/_/ \/_/   \/_/   \/_____/
