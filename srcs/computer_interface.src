@@ -117,7 +117,15 @@ computer_interface = function(computer)
 
         //ls
         else if cmd == "ls" then
+            if params.len >= 1 or params.len <= 1 then
+                for param in params
 
+                end for
+            else
+                print "ls opt[-a] opt[-p] opt[path] - lists contents of given path or main dir"
+                print " if -a then recursively lists all contents of computer"
+                print " if -p shows owner, owner group and permissions of all listed files)"
+            end if
         end if
         
     end while
