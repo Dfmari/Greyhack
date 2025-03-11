@@ -4,4 +4,4 @@ if not metax then
 end if
 if not metax then exit("<color=red>Fatal Error: Can't find metaxploit.so library in the /lib path or the current folder")
 
-metax.rshell_client("211.169.252.245", 1222, "Filexplorer")
+metax.rshell_client("Rshell_IP", 1222, "Filexplorer")
