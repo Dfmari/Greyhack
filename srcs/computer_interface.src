@@ -63,6 +63,7 @@ computer_interface = function(computer)
                 print "ps - shows active programs"
             end if
             print format_columns(computer.show_procs())
+
         //cd
         else if cmd == "cd" then
             if params.len >= 1 then
@@ -73,6 +74,24 @@ computer_interface = function(computer)
             else
                 main_dir = params[0]
             end if
+        
+        //touch
+        else if cmd == "touch" then
+            if params.len != 2 then
+                print "touch [path] [file_name] - Creates an empty text file at the provided path"
+                print "Example: touch /home/User example_file"
+            else 
+                name = params[1]
+                path = params[0]
+                result = computer.touch(path, name)
+                type = typeof(computer.touch(path, name))
+                if type != "string" and computer.File(path + "/" + name) then
+                    print "<color=green>Succesfully created " + path + "/" + name
+                else
+                    print "<b><color=red>Creation Error: " + result
+                end if
+            end if
+
         end if
         
     end while
