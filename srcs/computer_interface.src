@@ -119,7 +119,9 @@ computer_interface = function(computer)
         else if cmd == "ls" then
             if params.len >= 1 or params.len <= 1 then
                 for param in params
-
+                    if param[0] == "-" then
+                         
+                    end if
                 end for
             else
                 print "ls opt[-a] opt[-p] opt[path] - lists contents of given path or main dir"
