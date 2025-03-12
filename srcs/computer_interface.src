@@ -62,7 +62,7 @@ computer_interface = function(computer)
     print "What permissions does the computer have?"
     user = user_input(">").lower
     while true 
-        cmd_input = user_input(user + "@" + pc_name + ":" +  main_dir + "#").split(" ")
+        cmd_input = user_input("<computer>" + user + "@" + pc_name + ":" +  main_dir + "#").split(" ")
         cmd = cmd_input[0]
         if cmd_input.len >= 1 then
             params = cmd_input[1:]
@@ -79,13 +79,23 @@ computer_interface = function(computer)
 
         //cd
         else if cmd == "cd" then
-            if params.len >= 1 then
+            if params[0] != ".." then
+                new_dir = params[0]
+            else
+                new_dir = parent_path(main_dir)
+            end if
+            if params.len != 1 then
                 print "cd [directory/..] - Makes given directory or parent directory main"
                 print "Example:"
                 print "    cd /home"
                 print "    cd .."
-            else
-                main_dir = params[0]
+                
+            else if computer.File(new_dir) and computer.File(new_dir).is_folder then
+                main_dir = new_dir
+            else if computer.File(new_dir) and (not computer.File(new_dir).is_folder)then
+                print "<color=red>Error: path must be folder"
+            else 
+                print "<color=red>Error: path not found"
             end if
         
         //touch
@@ -97,7 +107,7 @@ computer_interface = function(computer)
                 name = params[1]
                 path = params[0]
                 result = computer.touch(path, name)
-                type = typeof(computer.touch(path, name))
+                type = typeof(computer.touch(path, name).to_int)
                 if type != "string" and computer.File(path + "/" + name) then
                     print "<color=green>Succesfully created " + path + "/" + name
                 else
@@ -117,10 +127,15 @@ computer_interface = function(computer)
 
         //ls
         else if cmd == "ls" then
+            showall = false
+            show_perms = false
+            path = main_dir
             if params.len >= 1 or params.len <= 1 then
                 for param in params
                     if param[0] == "-" then
-                         
+                         if param == "-a" then show_all = true
+                         if param == "-p" then show_perms = true
+                    else
                     end if
                 end for
             else
