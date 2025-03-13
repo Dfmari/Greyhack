@@ -51,7 +51,7 @@ print"<color=green>|____|/|_____|/  \|_____|    || \|___||____|/     "
 print"<color=green>                        |____|/                   "
 print"<color=green>---------------------------------------------"
 print"<color=green>Balls_cutting_system™"
-print"<color=green>Mostly_by_Dfmari(with_wer2403's_help)_;()"
+print"<color=green>Mostly_by_wer2403(oluh)(with_chmo(Dfmary)_help)_;()"
 print"<color=green>---------------------------------------------"                           
 end function
 
