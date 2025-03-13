@@ -20,7 +20,7 @@ if not metax then exit("<color=red>Fatal Error: Can't find metaxploit.so library
 //✔[p]cd [directory/..] - Makes given directory or parent directory main 
 //✔[p]touch [path] [file_name] - Creates an empty text file at the provided path
 //✔[r]passwd [username] [password] - Changes password for given user(must be root)
-//[a]ls opt[-a] opt[-p] opt[path] - lists contents of given path or main dir (if -a then recursively lists all contents of computer)(if -p shows owner, owner group and permissions of all listed files)
+//[a]ls opt[-a] opt[-p] opt[path] - lists contents of given path or main dir (if -a then list all folders recusively)(if -p shows owner, owner group and permissions of all listed files)
 //[a]groups [username] -  Returns a string containing groups associated with an existing user on the computer
 //[r]groupadd [username] [group] - Creates a new group associated with an existing user on the computer
 //[r]groupdel [username] [group] - Deletes an existing group associated with an existing user on the computer
@@ -56,13 +56,49 @@ perm_ask = function(user)//If permissions are not root asks confirmation to cont
 end function
 
 
+ls = function(computer, ls_path, index=0, recursive=false, perms=false)//lists files in given path can be recursively and can show permissions of files
+    output = ""
+    ls_file = computer.File(ls_path)
+    files = ls_file.get_files
+    folders = ls_file.get_folders
+    if recursive == true then
+        for file in files
+            info = ("- " * index) + file.name + " FILE"
+            if perms == true then info = info + " " + file.permissions
+            output = output + info + "\n"
+        end for
+        for folder in folders
+            output = output + ("- " * index) + folder.name + " DIR:" + "\n"
+            print format_columns(output)
+            output = ""
+            ls(computer, folder.path, index+1, recursive, perms)
+        end for
+
+    else 
+        for file in files
+            info = file.name + " FILE"
+            if perms == true then info = info + " " + file.permissions
+            output = output + info + "\n"
+        end for
+
+        for folder in folders
+            info = folder.name + " DIR:"
+            if perms == true then info = info + " " + folder.permissions
+            output = output + info + "\n"
+        end for
+    end if
+    print format_columns(output)
+    
+end function
+
+
 computer_interface = function(computer)
     main_dir = "/"
     pc_name = computer.get_name
     print "What permissions does the computer have?"
     user = user_input(">").lower
     while true 
-        cmd_input = user_input("<computer>" + user + "@" + pc_name + ":" +  main_dir + "#").split(" ")
+        cmd_input = user_input("<computer>" + user + "@" + pc_name + ":" +  main_dir + "# ").split(" ")
         cmd = cmd_input[0]
         if cmd_input.len >= 1 then
             params = cmd_input[1:]
@@ -108,8 +144,8 @@ computer_interface = function(computer)
                 path = params[0]
                 result = computer.touch(path, name)
                 type = typeof(computer.touch(path, name).to_int)
-                if type != "string" and computer.File(path + "/" + name) then
-                    print "<color=green>Succesfully created " + path + "/" + name
+                if result == 1 and computer.File(path + "/" + name) then
+                    print "<color=green>Succesfully created <b>" + path + "/" + name
                 else
                     print "<b><color=red>Creation Error: " + result
                 end if
@@ -127,22 +163,31 @@ computer_interface = function(computer)
 
         //ls
         else if cmd == "ls" then
-            showall = false
+            show_all = false
             show_perms = false
             path = main_dir
-            if params.len >= 1 or params.len <= 1 then
+            if params.len <= 3 and params.len > 0 then
                 for param in params
                     if param[0] == "-" then
                          if param == "-a" then show_all = true
                          if param == "-p" then show_perms = true
                     else
+                        ls_path = param
                     end if
                 end for
+
+            else if params.len == 0 then
+                ls_path = main_dir
             else
                 print "ls opt[-a] opt[-p] opt[path] - lists contents of given path or main dir"
-                print " if -a then recursively lists all contents of computer"
+                print " if -a then recursively lists all folders"
                 print " if -p shows owner, owner group and permissions of all listed files)"
             end if
+            ls(computer, ls_path, 0, show_all, show_perms)
+
+
+
+
         end if
         
     end while
