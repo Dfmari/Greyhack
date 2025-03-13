@@ -20,7 +20,7 @@ if not metax then exit("<color=red>Fatal Error: Can't find metaxploit.so library
 //✔[p]cd [directory/..] - Makes given directory or parent directory main 
 //✔[p]touch [path] [file_name] - Creates an empty text file at the provided path
 //✔[r]passwd [username] [password] - Changes password for given user(must be root)
-//[a]ls opt[-a] opt[-p] opt[path] - lists contents of given path or main dir (if -a then list all folders recusively)(if -p shows owner, owner group and permissions of all listed files)
+//✔[a]ls opt[-a] opt[-p] opt[path] - lists contents of given path or main dir (if -a then list all folders recusively)(if -p shows owner, owner group and permissions of all listed files)
 //[a]groups [username] -  Returns a string containing groups associated with an existing user on the computer
 //[r]groupadd [username] [group] - Creates a new group associated with an existing user on the computer
 //[r]groupdel [username] [group] - Deletes an existing group associated with an existing user on the computer
