@@ -170,9 +170,9 @@ end function
 startup = function()//shows startup menu and returns chosen option
 	// Font: Ogre                                                           
  print"<color=green>   _____ __  ____________   __  _________________"
- print"<color=green>   / ___// / / /  _/_  __/  / / / /  _/_  __/ ___/"
- print"<color=green>   \__ \/ /_/ // /  / /    / /_/ // /  / /  \__ \ "
- print"<color=green>  ___/ / __  // /  / /    / __  // /  / /  ___/ / "
+ print"<color=green>   / ___ / / / /  _/_  __/  / / / /  _/_  __/ ___/"
+ print"<color=green>   \__ \/ /_/  / /  / /    / /_/  / /  / /  \__ \ "
+ print"<color=green>  ___/ / __   / /  / /    / __   / /  / /  ___/ / "
  print"<color=green> /____/_/ /_/___/ /_/    /_/ /_/___/_/_/  /____/  "
  print"<color=green>    /   |        / ____/   |  / | / /             "
  print"<color=green>   / /| |       / /_  / /| | /  |/ /              "
@@ -344,15 +344,15 @@ end function
 hack_computer = function(computer)//gives user ability to use some hacking tools against given computer
     //Font: Ogre
 print("<color=green>    ________  __________ __ _____   ________            ")
-print("<color=green>    / ____/ / / / ____/ //_//  _/ | / / ____/            ")
-print("<color=green>   / /_  / / / / /   / ,<   / //  |/ / / __              ")
-print("<color=green>  / __/ / /_/ / /___/ /| |_/ // /|  / /_/ /              ")
+print("<color=green>    / ____/ / / / ____/ / _/   _/ | / / ____/            ")
+print("<color=green>   / /_  / / / / /   / ,<   / /   |/ / / __              ")
+print("<color=green>  / __/ / /_/ / /___/ /| |_/ /  /|  / /_/ /              ")
 print("<color=green> /_/__  \____/\____/_/_|_/___/_/_|_/\____/               ")
 print("<color=green>   / / / / __ \ \ \/ / __ \/ / / / __ \                  ")
 print("<color=green>  / / / / /_/ /  \  / / / / / / / /_/ /                  ")
 print("<color=green> / /_/ / ____/   / / /_/ / /_/ / _, _/                   ")
 print("<color=green> \____/_/_____  /_/\____/\____/_/_|_| __________________ ")
-print("<color=green>   / ____/ __ \/  |/  / __ \/ / / / //_/_  __/ ____/ __ \")
+print("<color=green>   / ____/ __ \/  |/  / __ \/ / / / / _/_  __/ ____/ __ \")
 print("<color=green>  / /   / / / / /|_/ / /_/ / / / / ,<   / / / __/ / /_/ /")
 print("<color=green> / /___/ /_/ / /  / / ____/ /_/ / /| | / / / /___/ _, _/ ")
 print("<color=green> \____/\____/_/  /_/_/    \____/_/ |_|/_/ /_____/_/ |_|   ")  
@@ -531,14 +531,14 @@ end if
 //Port Scan
 if option == 2 then
 	//Font:Ogre
-print("<color=green>    __  ___________________ _____   ________ ")
-print("<color=green>    /  |/  / ____/ ___/ ___//  _/ | / / ____/ ")
+print("<color=green>     __  ___________________ _____   ________ ")
+print("<color=green>    /  |/  / ____/ ___/ ___ /  _/ | / / ____/ ")
 print("<color=green>   / /|_/ / __/  \__ \\__ \ /  /  |/ / / __   ")
-print("<color=green>  / /  / / /___ ___/ /__/ //  / /|  / /_/ /   ")
-print("<color=green> /_/  /_/_____//____/____/___/_/_|_/\____/___ ")
+print("<color=green>  / /  / / /___ ___/ /__/  /  / /|  / /_/ /   ")
+print("<color=green> /_/  /_/_____ /____/____/___/_/_|_/\____/___ ")
 print("<color=green> | |     / /  _/_  __/ / / /  / /   /  _/ __ )")
-print("<color=green> | | /| / // /  / / / /_/ /  / /    / // __  |")
-print("<color=green> | |/ |/ // /  / / / __  /  / /____/ // /_/ / ")
+print("<color=green> | | /| /  / /  / / / /_/ /  / /    / /  __  |")
+print("<color=green> | |/ |/  / /  / / / __  /  / /____/ /  /_/ / ")
 print("<color=green> |__/|__/___/ /_/ /_/ /_/  /_____/___/_____/  ")
 	if preoption == 1 then
         lib = ask_lib
