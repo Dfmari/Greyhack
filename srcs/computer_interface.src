@@ -28,7 +28,7 @@ if not metax then exit("<color=red>Fatal Error: Can't find metaxploit.so library
 //[r]userdel [username] [removeHome=false]  - Deletes the indicated user from the computer. It can optionally delete the user's home folder
 //✔[a]ps - shows active programs 
 //[p]kill [PID] - Closes a program associated with the provided PID
-//[a]ipinfo - shows local ip, public ip, network gateway, active ports and network devices
+//[a]ipinfo - shows local ip, public ip, network gateway, active ports and network devices.
 //[a]iwlist [net_device] - shows info about available wifi networks
 //[u]wifi  [bssid] [essid] [password] - connects to given wifi
 //[p]mkdir [path] [name=newFolder] - Creates a folder at the provided path
@@ -214,6 +214,35 @@ computer_interface = function(computer)
                     print "<color=orange>Failed to delete group: Input error"
                 end if
             end if
+        
+        //ipinfo    
+        else if cmd == "ipinfo" then
+            if params.len != 0 then print "ipinfo - shows local ip, public ip, network gateway, active ports and network devices"
+            router = get_router(computer.public_ip)
+            print "   _______     ____     ___         _ "
+            print "  /  _/ _ \   /  _/__  / _/__      (_)"
+            print " _/ // ___/  _/ // _ \/ _/ _ \    _   "
+            print "/___/_/     /___/_//_/_/ \___/   (_)  "
+            print ""
+            info = "[Public IP]: " + computer.public_ip + "\n"
+            info = info + "[Network Gateway]: " + computer.network_gateway + "\n"
+            info = info + "[Local IP]: " + computer.local_ip + "\n"
+            print format_columns(info)
+            info ="{Active Ports}" + "\n"
+            info = info +  "Number Status Service" + "\n"
+            ports = computer.get_ports
+            for port in ports
+                status = "open"
+                if port.is_closed then status = "closed"
+                info =  info + port.port_number + " " + status + " " + router.port_info(port) + "\n"
+            end for
+            print format_columns(info)
+            info = "{Network Devices}" + "\n"
+            n_devices = computer.network_devices
+            for n_device in n_devices
+                info = info + " = " + n_device + "\n"
+            end for
+
         end if
         
     end while
