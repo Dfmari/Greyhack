@@ -27,8 +27,8 @@ if not metax then exit("<color=red>Fatal Error: Can't find metaxploit.so library
 //[r]useradd [username] [password] - Creates a user on the computer
 //[r]userdel [username] [removeHome=false]  - Deletes the indicated user from the computer. It can optionally delete the user's home folder
 //✔[a]ps - shows active programs 
-//[p]kill [PID] - Closes a program associated with the provided PID
-//[a]ipinfo - shows local ip, public ip, network gateway, active ports and network devices.
+//✔[p]kill [PID] - Closes a program associated with the provided PID
+//✔[a]ipinfo - shows local ip, public ip, network gateway, active ports and network devices.
 //[a]iwlist [net_device] - shows info about available wifi networks
 //[u]wifi  [bssid] [essid] [password] - connects to given wifi
 //[p]mkdir [path] [name=newFolder] - Creates a folder at the provided path
