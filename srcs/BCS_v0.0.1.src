@@ -343,7 +343,7 @@ end function
 
 hack_computer = function(computer)//gives user ability to use some hacking tools against given computer
     //Font: Ogre
-print("<color=green>    ________  __________ __ _____   ________            ")
+print("<color=green>     ________  __________ __ _____   ________            ")
 print("<color=green>    / ____/ / / / ____/ / _/   _/ | / / ____/            ")
 print("<color=green>   / /_  / / / / /   / ,<   / /   |/ / / __              ")
 print("<color=green>  / __/ / /_/ / /___/ /| |_/ /  /|  / /_/ /              ")
@@ -355,7 +355,7 @@ print("<color=green> \____/_/_____  /_/\____/\____/_/_|_| __________________ ")
 print("<color=green>   / ____/ __ \/  |/  / __ \/ / / / / _/_  __/ ____/ __ \")
 print("<color=green>  / /   / / / / /|_/ / /_/ / / / / ,<   / / / __/ / /_/ /")
 print("<color=green> / /___/ /_/ / /  / / ____/ /_/ / /| | / / / /___/ _, _/ ")
-print("<color=green> \____/\____/_/  /_/_/    \____/_/ |_|/_/ /_____/_/ |_|   ")  
+print("<color=green> \____/\____/_/  /_/_/    \____/_/ |_|/_/ /_____/_/ |_|  ")  
     exitcheck = false
     while exitcheck == false
         inputOK = false
