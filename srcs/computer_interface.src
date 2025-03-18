@@ -29,7 +29,7 @@ if not metax then exit("<color=red>Fatal Error: Can't find metaxploit.so library
 //✔[a]ps - shows active programs 
 //✔[p]kill [PID] - Closes a program associated with the provided PID
 //✔[a]ipinfo - shows local ip, public ip, network gateway, active ports and network devices.
-//[a]iwlist [net_device] - shows info about available wifi networks
+//✔[a]iwlist [net_device] - shows info about available wifi networks
 //[u]wifi  [bssid] [essid] [password] - connects to given wifi
 //[p]mkdir [path] [name=newFolder] - Creates a folder at the provided path
 //[u]chmod [file_path] [perms] [isRecursive=false] - Modifies permissions of given file
@@ -264,6 +264,17 @@ computer_interface = function(computer)
                     print(format_columns(info))
                 end if
             end if
+
+            //wifi
+            else if cmd == "wifi" then
+                if params.len != 3 then
+                    print "wifi [net_device] [bssid] [essid] [password] - connects to given wifi"
+                else
+                    result = computer.connect_wifi(params[0], params[1], params[2], params[3])
+                    if typeof(result) == "string" then print result  
+                end if
+
+            
         end if
         
     end while
