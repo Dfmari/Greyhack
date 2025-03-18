@@ -238,11 +238,32 @@ computer_interface = function(computer)
             end for
             print format_columns(info)
             info = "{Network Devices}" + "\n"
+            info = info + "Name Chipset Monitor" + "\n"
             n_devices = computer.network_devices.split(char(10))
             for n_device in n_devices
-                info = info + " = " + n_device + "\n"
+                info = info + n_device + "\n"
             end for
-            print info
+            print format_columns(info)
+
+        //iwlist
+        else if cmd == "iwlist" then
+            if params.len != 1 then 
+                print "<b>iwlist [net device]"
+            else
+                devices = computer.network_devices
+                if devices == null or devices.indexOf(params[0]) == null then exit("Input Error: Network device not found")
+                if params[0].indexOf("eth") != null then exit("Input Error: ethernet cards not supported for this command")
+                networks = computer.wifi_networks(params[0])
+                if networks == null then 
+                    print "<b>iwlist [net device]"
+                else
+                    info = "BSSID PWR ESSID"
+                    for network in networks
+	                    info = info + "\n" + network
+                    end for
+                    print(format_columns(info))
+                end if
+            end if
         end if
         
     end while
