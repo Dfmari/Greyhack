@@ -238,11 +238,11 @@ computer_interface = function(computer)
             end for
             print format_columns(info)
             info = "{Network Devices}" + "\n"
-            n_devices = computer.network_devices
+            n_devices = computer.network_devices.split(char(10))
             for n_device in n_devices
                 info = info + " = " + n_device + "\n"
             end for
-
+            print info
         end if
         
     end while
