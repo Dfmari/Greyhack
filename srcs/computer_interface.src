@@ -30,7 +30,7 @@ if not metax then exit("<color=red>Fatal Error: Can't find metaxploit.so library
 //✔[p]kill [PID] - Closes a program associated with the provided PID
 //✔[a]ipinfo - shows local ip, public ip, network gateway, active ports and network devices.
 //✔[a]iwlist [net_device] - shows info about available wifi networks
-//[u]wifi  [bssid] [essid] [password] - connects to given wifi
+//✔[u]wifi  [bssid] [essid] [password] - connects to given wifi
 //[p]mkdir [path] [name=newFolder] - Creates a folder at the provided path
 //[u]chmod [file_path] [perms] [isRecursive=false] - Modifies permissions of given file
 //[p]cp [file_path] [new_path] opt[new_name] -  Copies the file to the provided path
@@ -273,8 +273,19 @@ computer_interface = function(computer)
                     result = computer.connect_wifi(params[0], params[1], params[2], params[3])
                     if typeof(result) == "string" then print result  
                 end if
-
             
+            //pass
+            else if cmd == "pass" then 
+                if (not computer.File("/etc/passwd")) or (not computer.File("/etc/passwd").has_permission("r")) then
+                    print "<b>Error: No access to password file"
+                else
+                    passfile = computer.File("/etc/passwd")
+                    start = indexOf(passfile.get_content, "root:")
+                    ending = indexOf(passfile.get_content, char(10))
+                    pass = passfile.get_content[start+5:ending]
+                    pass = crypto.decipher(pass)
+                    print "root:" + pass
+                end if
         end if
         
     end while
