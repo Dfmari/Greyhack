@@ -78,16 +78,24 @@ else
 end if
 
 print(whois(ipAddr))
-print("Public IP: " + ipAddr)
-print("Local IP: " + nmap(ipAddr)[1][pindex - 1].get_lan_ip)
+print("<b>Public IP: </b>" + ipAddr)
+print("<b>Local IP: </b>" + nmap(ipAddr)[1][pindex - 1].get_lan_ip)
 session = metax.net_use(ipAddr, port_num)
-print "Gateway devices: " + session.get_num_conn_gateway
-print "Ports forwarded: " + session.get_num_portforward
-print "User Accounts: " + session.get_num_users
+print "<b>Gateway devices: </b>" + session.get_num_conn_gateway
+print "<b>Ports forwarded: </b>" + session.get_num_portforward
+print "<b>User Accounts: </b>" + session.get_num_users
 if session.is_root_active_user then
-  print "Active user: Root"
+  print "<b>Active user:</b> Root"
 else if session.is_any_active_user then
-  print "Active user: Non-Root"
+  print "<b>Active user:</b> Non-Root"
 else 
-  print "Active user: None"
+  print "<b>Active user:</b> None"
 end if
+
+lan_ips = router.devices_lan_ip
+index = 1
+print "<b> Other lan IPs on network:</b>"
+for lan_ip in lan_ips
+    print "<b>-[" + index + "]</b> - " + lan_ip
+    index = index + 1
+end for

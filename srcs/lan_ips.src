@@ -1,9 +1,0 @@
-//lan_ips
-ipAddr = params[0]
-router = get_router(ipAddr)
-lan_ips = router.devices_lan_ip
-index = 1
-for lan_ip in lan_ips
-    print "<b>[" + index + "]</b> - " + lan_ip
-    index = index + 1
-end for
