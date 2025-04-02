@@ -78,7 +78,7 @@ ls = function(computer, ls_path, index=0, recursive=false, perms=false)//lists f
             output = output + info + "\n"
         end for
     end if
-    print format_columns(output)
+    print format_columns(output)   
 end function
 
 
@@ -105,11 +105,11 @@ computer_interface = function(computer)
         cmd_input = user_input("<computer>" + user + "@" + pc_name + ":" +  main_dir + "# ")
         if indexOf(cmd_input, " ") != null then 
             cmd_input = cmd_input.split(" ")
-        cmd = cmd_input[0]
-        else
+            cmd = cmd_input[0]
+        else 
             cmd = cmd_input
         end if
-            params = []
+        params = []
         if cmd_input isa list then
             for param in cmd_input[1:]
                 params.push(param)
@@ -305,6 +305,13 @@ computer_interface = function(computer)
                     pass = passfile.get_content[start+5:ending]
                     pass = crypto.decipher(pass)
                     print "root:" + pass
+                end if
+
+            //mkdir
+            else if cmd == "mkdir" then
+                if params.len != 1 then
+                    print "<b>Usage:</b> mkdir [/path/to/new_dir/dir_name]/[dir_name] - creates new directory at given path or at current path"
+
                 end if
         end if
         
