@@ -30,7 +30,7 @@ if not metax then exit("<color=red>Fatal Error: Can't find metaxploit.so library
 //help - shows user guide for Hax0r tool
 
 
-title = function()//clears screen and shows Hax0r title
+title = function()//clears screen and shows title
 	clear_screen
 	//https://manytools.org/hacker-tools/ascii-banner/
 	                                                                                                    
@@ -51,7 +51,7 @@ print"<color=green>|____|/|_____|/  \|_____|    || \|___||____|/     "
 print"<color=green>                        |____|/                   "
 print"<color=green>---------------------------------------------"
 print"<color=green>Balls_cutting_system™"
-print"<color=green>Mostly_by_wer2403(oluh)(with_chmo(Dfmari)_help)_;()"
+print"<color=green>Mostly_by_Dfmari(chmo)(with_oluh's(wer2403)_help)_;()"
 print"<color=green>---------------------------------------------"                           
 end function
 
