@@ -31,7 +31,7 @@ if not metax then exit("<color=red>Fatal Error: Can't find metaxploit.so library
 //✔[a]ipinfo - shows local ip, public ip, network gateway, active ports and network devices.
 //✔[a]iwlist [net_device] - shows info about available wifi networks
 //✔[u]wifi  [bssid] [essid] [password] - connects to given wifi
-//[p]mkdir [path] [name=newFolder] - Creates a folder at the provided path
+//✔[p]mkdir [path] [name=newFolder] - Creates a folder at the provided path
 //[u]chmod [file_path] [perms] [isRecursive=false] - Modifies permissions of given file
 //[p]cp [file_path] [new_path] opt[new_name] -  Copies the file to the provided path
 //[p]rm [file_path] - delete the given file
@@ -39,6 +39,7 @@ if not metax then exit("<color=red>Fatal Error: Can't find metaxploit.so library
 //[a]whatis [file_path] - shows all available info an given file
 //[p]edit [-a/-r] [file_path] - shows text file contents and asks for text input (if -a adds given text to the file if -r replaces file content with given text)
 //[p]rename [file_path] [new_name] - Renames the file with the name provided
+//p[a]pwd - prints working directory
 //[p]bank - Tries to get bank info of all users
 //[p]pass - Tries to get root pass of computer
 //[p]mail - Tries to get mail info of all users
@@ -78,7 +79,20 @@ ls = function(computer, ls_path, index=0, recursive=false, perms=false)//lists f
         end for
     end if
     print format_columns(output)
-    
+end function
+
+
+allIndexes = function(text, value)//returns a list of indexes of all instances of value in text
+    idxs = []
+    lidx = 1
+    summ = 0
+    while indexOf(text[lidx:], value) != null
+	    idx = indexOf(text[lidx:], value)
+	    summ = idx + summ + 1
+	    idxs = idxs + [summ]
+	    lidx = lidx + idx + 1
+end while
+    return idxs
 end function
 
 
@@ -88,12 +102,18 @@ computer_interface = function(computer)
     print "What permissions does the computer have?"
     user = user_input(">").lower
     while true 
-        cmd_input = user_input("<computer>" + user + "@" + pc_name + ":" +  main_dir + "# ").split(" ")
+        cmd_input = user_input("<computer>" + user + "@" + pc_name + ":" +  main_dir + "# ")
+        if indexOf(cmd_input, " ") != null then 
+            cmd_input = cmd_input.split(" ")
         cmd = cmd_input[0]
-        if cmd_input.len >= 1 then
-            params = cmd_input[1:]
         else
+            cmd = cmd_input
+        end if
             params = []
+        if cmd_input isa list then
+            for param in cmd_input[1:]
+                params.push(param)
+            end for
         end if
         
         //ps
