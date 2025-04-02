@@ -63,6 +63,8 @@ if params.len ==  2 then
   port_num = params[1]
 else if nmap(ipAddr) == 0 then
   port_num = 0
+  router = get_router(ipAddr)
+  lIP = router.local_ip
 else
   inputOK = false
   while inputOK == false
@@ -70,6 +72,7 @@ else
     pindex = user_input("choose LAN IP:").to_int
     if pindex <= nmap(ipAddr)[1].len then 
       port_num = nmap(ipAddr)[1][pindex - 1].port_number
+      lIP = nmap(ipAddr)[1][pindex - 1].get_lan_ip
       inputOK = true
     else
       print "Index not found"
@@ -79,7 +82,7 @@ end if
 
 print(whois(ipAddr))
 print("<b>Public IP: </b>" + ipAddr)
-print("<b>Local IP: </b>" + nmap(ipAddr)[1][pindex - 1].get_lan_ip)
+print("<b>Local IP: </b>" + lIP)
 session = metax.net_use(ipAddr, port_num)
 print "<b>Gateway devices: </b>" + session.get_num_conn_gateway
 print "<b>Ports forwarded: </b>" + session.get_num_portforward
