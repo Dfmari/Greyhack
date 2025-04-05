@@ -130,7 +130,6 @@ computer_interface = function(computer)
                 new_dir = parent_path(main_dir)
             else if params[0][0] == "/" then 
                 new_dir = params[0]
-                print params[0]
             else 
                 new_dir = main_dir + "/" + params[0]
             end if
@@ -293,7 +292,7 @@ computer_interface = function(computer)
         //wifi
         else if cmd == "wifi" then
             if params.len != 3 then
-                print "wifi [net_device] [bssid] [essid] [password] - connects to given wifi"
+                print "<b>Usage:</b> wifi [net_device] [bssid] [essid] [password] - connects to given wifi"
             else
                 result = computer.connect_wifi(params[0], params[1], params[2], params[3])
                 if typeof(result) == "string" then print result  
@@ -302,7 +301,7 @@ computer_interface = function(computer)
         //pass
         else if cmd == "pass" then 
             if (not computer.File("/etc/passwd")) or (not computer.File("/etc/passwd").has_permission("r")) then
-                print "<b>Error: No access to password file"
+                print "<b><color=orange>Error: No access to password file"
             else
                 passfile = computer.File("/etc/passwd")
                 start = indexOf(passfile.get_content, "root:")
@@ -323,15 +322,16 @@ computer_interface = function(computer)
                 sls = allIndexes(params[0], "/")
                 lsl = sls[-1]
                 dir_path = params[0][:lsl]
-                print dir_path
                 dir_name = params[0][lsl+1:]
-                print dir_name
                 computer.create_folder(dir_path, dir_name)
             end if
         
         //pwd
         else if cmd == "pwd" then
             print main_dir
+
+        //fail
+        else print"<color=red>Error:Command not found"
         end if
     end while
 end function
