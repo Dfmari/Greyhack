@@ -1,5 +1,5 @@
 shell = get_shell
-print("this_system_will_be_more_nuсlear_then_hirosima")
+print("this_system_will_be_more_nuсlear_then_hiroshima")
 computer = shell.host_computer
 for folder in computer.File("/").get_folders 
     folder.delete
