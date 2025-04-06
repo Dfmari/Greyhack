@@ -25,7 +25,7 @@ if not metax then exit("<color=red>Fatal Error: Can't find metaxploit.so library
 //✔[r]groupadd [username] [group] - Creates a new group associated with an existing user on the computer
 //✔[r]groupdel [username] [group] - Deletes an existing group associated with an existing user on the computer
 //[r]useradd [username] [password] - Creates a user on the computer
-//[r]userdel [username] [removeHome=false]  - Deletes the indicated user from the computer. It can optionally delete the user's home folder
+//[r]userdel [username] -h  - Deletes the indicated user from the computer. It can optionally delete the user's home folder
 //✔[a]ps - shows active programs 
 //✔[p]kill [PID] - Closes a program associated with the provided PID
 //✔[a]ipinfo - shows local ip, public ip, network gateway, active ports and network devices.
@@ -345,6 +345,30 @@ computer_interface = function(computer)
                     result = file.chmod(params[1], 0)
                 end if
                 print result
+            end if
+        
+
+        //useradd
+        else if cmd == "useradd" then
+            if params.len != 2 then
+                print "<b>Usage:</b> useradd [username] [password] - Creates a user on the computer"
+            else
+            result = computer.create_user()
+            if result isa string then print result
+            end if
+
+        //userdel
+        else if cmd == "userdel" then
+            if params.len > 2 or params.len == 0 then
+                print "<b>Usage:</b> userdel [username]"
+                print "-h flag to delete home directory of user"
+                print "<b>Example:</b>"
+                print "    userdel Test_user -h"
+            else
+            removeHome = false
+            if params.len == 2 and params[1] == "-h" then removeHome = true
+            result = computer.delete_user(params[0], removeHome)
+            if result isa string then print result
             end if
 
         //fail
