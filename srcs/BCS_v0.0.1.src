@@ -510,7 +510,7 @@ help = function()//shows user guide for Hax0r tool
 		print "1) Direct Hack"
 		print "2) Port Scan"
 		print "4) Command"
-		exit("<color=red>Developers_shit_their_pants_Error:sorry_we_didn't_gave_a_shit_about_this_yet</color>")
+		exit("<color=red>Developers_shit_their_pants_Error:sorry_we_didn't_give_a_shit_about_this_yet</color>")
 	end while
 
 end function
