@@ -329,6 +329,23 @@ computer_interface = function(computer)
         //pwd
         else if cmd == "pwd" then
             print main_dir
+        
+        //chmod
+        else if cmd == "chmod" then
+            if params.len > 3 or params.len < 2 then
+                print "<b>Usage:</b> chmod [file_path] [perms] [isRecursive=0]"
+                print "<b>Example:</b> chmod /example/file g+wr 1"
+            else 
+                file = computer.File(params[0])
+                if file == null then
+                    print "<color=red>Error:File not found"
+                else if params.len == 3 then
+                    result = file.chmod(params[1], params[2])
+                else
+                    result = file.chmod(params[1], 0)
+                end if
+                print result
+            end if
 
         //fail
         else print"<color=red>Error:Command not found"
