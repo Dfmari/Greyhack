@@ -124,9 +124,6 @@ ask_port = function(ipAddr)//asks user to choose port on given ip address and re
 			port = ports[index]
 			if port != 0 then
 					inputOK = true 
-				end if
-            else    
-                inputOK = true
 			end if
 		end if
 	end while
