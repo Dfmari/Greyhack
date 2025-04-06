@@ -123,9 +123,6 @@ ask_port = function(ipAddr)//asks user to choose port on given ip address and re
 		else
 			port = ports[index]
 			if port != 0 then
-				if port.is_closed then 
-					print "<color=orange>Input Error: Port closed</color>" 
-				else 
 					inputOK = true 
 				end if
             else    
