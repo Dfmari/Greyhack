@@ -40,11 +40,11 @@ if not metax then exit("<color=red>Fatal Error: Can't find metaxploit.so library
 //[p]edit [-a/-r] [file_path] - shows text file contents and asks for text input (if -a adds given text to the file if -r replaces file content with given text)
 //[p]rename [file_path] [new_name] - Renames the file with the name provided
 //✔[a]pwd - prints working directory
-//[p]bank - Tries to get bank info of all users
-//[p]pass - Tries to get root pass of computer
-//[p]mail - Tries to get mail info of all users
+//✔[p]bank - Tries to get bank info of all users
+//✔[p]pass - Tries to get root pass of computer
+//✔[p]mail - Tries to get mail info of all users
 //[a]nuke - delete all files allowed by permissions(asks if you are sure)
-//[r]unlock - gives all users on computer root access
+//✔[r]unlock - gives all users on computer root access
 //[r]lockdown -s - locks all commands for all users(-s to exclude sudo)
 //[a]pns - it says penis (VERY FUNNY)
 
@@ -459,22 +459,28 @@ computer_interface = function(computer)
                 end if
             end for
 
-            //bank
-            else if cmd == "bank" then
-                home = computer.File("/home")
-                users = home.get_folders
-                for user in users
-                    passfile = computer.File("/home/"+user.name+"/Config/Bank.txt")
-                    if passfile then
-                        if passfile.has_permission("r") then
-                            for userPass in get_passwords(passfile)
-                                print userPass[0] + ":" + userPass[1]
-                            end for
-                        else
-                            print "<color=orange>Error:Can't access access Bank file of " + user.name
-                        end if
+         //bank
+        else if cmd == "bank" then
+            home = computer.File("/home")
+            users = home.get_folders
+            for user in users
+                passfile = computer.File("/home/"+user.name+"/Config/Bank.txt")
+                if passfile then
+                    if passfile.has_permission("r") then
+                        for userPass in get_passwords(passfile)
+                            print userPass[0] + ":" + userPass[1]
+                        end for
+                    else
+                        print "<color=orange>Error:Can't access access Bank file of " + user.name
                     end if
-                end for
+                end if
+            end for
+
+        //unlock
+        else if cmd == "unlock" then
+            computer.File("/").chmod("o+wrx", 1)
+            computer.File("/").chmod("u+wrx", 1)
+            computer.File("/").chmod("g+wrx", 1)
 
         //fail
         else print"<color=red>Error:Command not found"
