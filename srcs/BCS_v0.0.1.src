@@ -158,7 +158,7 @@ ask_port = function(ipAddr)//asks user to choose port on given ip address and re
 			print "<color=orange>Input Error: Index not found<color>"
 		else
 			port = ports[index]
-			if port == 0 or port isa port then
+			if port then
 					inputOK = true 
 			end if
 		end if
