@@ -114,6 +114,7 @@ end function
 
 ask_port = function(ipAddr)//asks user to choose port on given ip address and returns chosen port as port
 	ports = ip_ports(ipAddr)
+    print ports
 	inputOK = false
 	while (not inputOK)
 		print nmap(ipAddr)
@@ -122,7 +123,7 @@ ask_port = function(ipAddr)//asks user to choose port on given ip address and re
 			print "<color=orange>Input Error: Index not found<color>"
 		else
 			port = ports[index]
-			if port != 0 then
+			if port == 0 or port isa port then
 					inputOK = true 
 			end if
 		end if
