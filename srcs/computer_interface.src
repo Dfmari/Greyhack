@@ -45,7 +45,32 @@ if not metax then exit("<color=red>Fatal Error: Can't find metaxploit.so library
 //[p]mail - Tries to get mail info of all users
 //[a]nuke - delete all files allowed by permissions(asks if you are sure)
 //[r]unlock - gives all users on computer root access
+//[r]lockdown -s - locks all commands for all users(-s to exclude sudo)
 //[a]pns - it says penis (VERY FUNNY)
+
+
+get_passwords = function(file, root=false)//deciphers all passwords for all users in given file and returns a list [[user, pass], [user, pass], ...](if root==true will try to only decipher root pass)
+    lines = file.get_content.split("\n")
+    if root == true then
+        if file.get_content.indexOf("root:") != null then
+            for line in lines
+                if line.indexOf("root:") != null then
+                    print "Deciphering root pass ..."
+                    userPass = line.split(":")
+                    pass = crypto.decipher(userPass[1])
+                end if
+            end for
+            return ["root", pass]
+        end if
+    end if
+    passwords = []
+    for line in lines
+        userPass = line.split(":")
+        userPass[1] = crypto.decipher(userPass[1])
+        passwords.push(userPass)
+    end for
+	return passwords
+end function
 
 
 ls = function(computer, ls_path, index=0, recursive=false, perms=false)//lists files in given path can be recursively and can show permissions of files
@@ -407,7 +432,49 @@ computer_interface = function(computer)
                     print content
                 end if
             end if 
+        
+        //pass
+        else if cmd == "pass" then
+            if computer.File("/etc/passwd").has_permission("r") then
+                userPass = get_passwords(computer.File("/etc/passwd"), true)
+                print userPass[0] + "@" + userPass[1]
+            else
+                print "<color=orange>Error:shit!_can't_get_passwd_file_sorry"
+            end if
 
+        //mail
+        else if cmd == "mail" then
+            home = computer.File("/home")
+            users = home.get_folders
+            for user in users
+                passfile = computer.File("/home/"+user.name+"/Config/Mail.txt")
+                if passfile then
+                    if passfile.has_permission("r") then
+                        for userPass in get_passwords(passfile)
+                            print userPass[0] + ":" + userPass[1]
+                        end for
+                    else
+                        print "<color=orange>Error:Can't access access Mail file of " + user.name
+                    end if
+                end if
+            end for
+
+            //bank
+            else if cmd == "bank" then
+                home = computer.File("/home")
+                users = home.get_folders
+                for user in users
+                    passfile = computer.File("/home/"+user.name+"/Config/Bank.txt")
+                    if passfile then
+                        if passfile.has_permission("r") then
+                            for userPass in get_passwords(passfile)
+                                print userPass[0] + ":" + userPass[1]
+                            end for
+                        else
+                            print "<color=orange>Error:Can't access access Bank file of " + user.name
+                        end if
+                    end if
+                end for
 
         //fail
         else print"<color=red>Error:Command not found"
