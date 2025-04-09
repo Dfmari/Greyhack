@@ -483,7 +483,8 @@ computer_interface = function(computer)
             computer.File("/").chmod("g+wrx", 1)
 
         //fail
-        else print"<color=red>Error:Command not found"
+        else 
+            print"<color=red>Error:Command not found"
         end if
     end while
 end function
