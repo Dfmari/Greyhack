@@ -34,8 +34,8 @@ if not metax then exit("<color=red>Fatal Error: Can't find metaxploit.so library
 //✔[p]mkdir [path] [name] - Creates a folder at the provided path
 //✔[u]chmod [file_path] [perms] [isRecursive=false] - Modifies permissions of given file
 //✔[p]cp [file_path] [new_path] opt[new_name] -  Copies the file to the provided path
-//[p]rm [file_path] - delete the given file
-//[p]cat [file_path] - prints contents of  text file
+//✔[p]rm [file_path] - delete the given file
+//✔[p]cat [file_path] - prints contents of  text file
 //[a]whatis [file_path] - shows all available info an given file
 //[p]edit [-a/-r] [file_path] - shows text file contents and asks for text input (if -a adds given text to the file if -r replaces file content with given text)
 //[p]rename [file_path] [new_name] - Renames the file with the name provided
@@ -374,7 +374,7 @@ computer_interface = function(computer)
         //cp
         else if cmd == "cp" then
             if params.len > 3 or params.len < 2 then
-                print "<b>Usage:</b> cp [file_path] [new_path] opt[new_name]"
+                print "<b>Usage:</b> cp [file_path] [new_path] opt[new_name] - copies given file to given new path"
             else if params.len == 2 then
                 o_file = computer.File(params[0])
                 result = o_file.copy(params[1], o_file.name)
@@ -383,7 +383,8 @@ computer_interface = function(computer)
                 result = o_file.copy(params[1], params[2])
             end if
             if result and result isa string and result.len > 0 then print result
-
+        
+        //rm
         else if cmd == "rm" then
             if params.len != 1 then
                 print "<b>Usage:</b> rm [file_path] - delete the given file"
@@ -393,8 +394,21 @@ computer_interface = function(computer)
             end if
             if result and result isa string and result.len > 0 then print result
 
-        
-            
+        //cat
+        else if cmd == "cat" then
+            if params.len != 1 then
+                print "<b>Usage: </b>cat [file_path] - prints contents of  text file"
+            else
+                file = computer.File(params[0])
+                content = file.get_content
+                if content == null then
+                    print "<color=orange>Error: can't read file"
+                else
+                    print content
+                end if
+            end if 
+
+
         //fail
         else print"<color=red>Error:Command not found"
         end if
