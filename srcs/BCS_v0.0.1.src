@@ -112,6 +112,41 @@ get_lib = function(ipAddr, port)//returns library used on given port of given ip
 end function
 
 
+ls = function(computer, ls_path, index=0, recursive=false, perms=false)//lists files in given path can be recursively and can show permissions of files
+    output = ""
+    ls_file = computer.File(ls_path)
+    files = ls_file.get_files
+    folders = ls_file.get_folders
+    if recursive == true then
+        for file in files
+            info = ("-" * index) + file.name + " FILE"
+            if perms == true then info = info + " " + file.permissions
+            output = output + info + "\n"
+        end for
+        for folder in folders
+            output = output + ("+" * index) + folder.name + " DIR:" + "\n"
+            print format_columns(output)
+            output = ""
+            ls(computer, folder.path, index+1, recursive, perms)
+        end for
+
+    else 
+        for file in files
+            info = file.name + " FILE"
+            if perms == true then info = info + " " + file.permissions
+            output = output + info + "\n"
+        end for
+
+        for folder in folders
+            info = folder.name + " DIR"
+            if perms == true then info = info + " " + folder.permissions
+            output = output + info + "\n"
+        end for
+    end if
+    print format_columns(output)   
+end function
+
+
 ask_port = function(ipAddr)//asks user to choose port on given ip address and returns chosen port as port
 	ports = ip_ports(ipAddr)
     print ports
@@ -637,8 +672,15 @@ computer_interface = function(computer)
             if params.len != 1 then
                 print "<b>Usage: </b>cat [file_path] - prints contents of  text file"
             else
-                file = computer.File(params[0])
-                content = file.get_content
+                if indexOf(params[0], "/") == null then
+                    file_path = main_dir + "/" + params[0]
+                end if
+                file = computer.File(file_path)
+                if file then
+                    content = file.get_content
+                else
+                    print "<color=orange>Error: file not found"
+                end if
                 if content == null then
                     print "<color=orange>Error: can't read file"
                 else
