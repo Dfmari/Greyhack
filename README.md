@@ -1,2 +1,2 @@
 # Greyhack
-The MOST illegal shit there is(DO NOT OPEN ANY OF THIS OR YOU GONNA SEE SMTH REALLY SCARY FR)
+My programs for the game [GreyHack](https://store.steampowered.com/app/605230/Grey_Hack/)
